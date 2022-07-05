@@ -51,7 +51,7 @@ async function cityAPI(city) {
         .then((data) => {
             const temp = data.main.temp;
             const description = data.weather[0].description;
-            drawWeather(temp, description, getIpLocation)
+            drawWeather(temp, description,  () => city)
         })
 
 }
@@ -60,6 +60,8 @@ async function cityAPI(city) {
 //Функция отрисовки погоды
 async function drawWeather(temp, desc, city) {
     const firstToUpper = desc[0].toUpperCase() + desc.slice(1);
+
+    container.innerHTML = ""
 
     const degrees = document.createElement('p');
     degrees.className = 'degrees';
@@ -94,7 +96,7 @@ async function getIpLocation() {
 //Функция отрисовки выбора города
 async function drawSelectCity() {
     const changeBtn = await document.querySelector('.btn-change');
-    changeBtn.addEventListener('click', () => {
+    changeBtn.addEventListener('click', async () => {
         container.innerHTML = '';
 
         const wrapper = document.createElement('div');
@@ -110,11 +112,20 @@ async function drawSelectCity() {
         findBtn.className = 'btn-find';
         findBtn.textContent = 'Find';
         wrapper.append(findBtn);
+
+        await cityChange()
     })
 }
 
 
 // Функция смены города
-// async function cityChange(value){
-//
-// }
+async function cityChange(){
+    const findBtn = document.querySelector('.btn-find');
+    const inputCity = document.querySelector('.input__city');
+
+    findBtn.addEventListener('click', async () => {
+        const cityToUpper = inputCity.value[0].toUpperCase() + inputCity.value.slice(1)
+
+        await cityAPI(cityToUpper)
+    })
+}
