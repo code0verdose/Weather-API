@@ -70,6 +70,13 @@ async function drawWeather(temp, desc) {
     description.className = 'description';
     description.textContent = `${firstToUpper} in ${await getUserLocation()}`;
     container.append(description);
+
+    const change = document.createElement('button');
+    change.textContent = 'Change city';
+    change.className = 'btn btn-change';
+    container.append(change);
+
+    await changeCity()
 }
 
 
@@ -83,3 +90,25 @@ async function getUserLocation() {
     return data.location.region;
 }
 
+
+//Функция смены города
+async function changeCity() {
+    const changeBtn = await document.querySelector('.btn-change');
+    changeBtn.addEventListener('click', () => {
+        container.innerHTML = '';
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'city__wrapper'
+        container.append(wrapper)
+
+        const input = document.createElement('input');
+        input.className = 'input__city';
+        input.placeholder = 'Type your city here';
+        wrapper.append(input)
+
+        const findBtn = document.createElement('button');
+        findBtn.className = 'btn-find';
+        findBtn.textContent = 'Find';
+        wrapper.append(findBtn)
+    })
+}

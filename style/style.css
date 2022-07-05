@@ -43,6 +43,67 @@ main {
     line-height: 36px;
     color: rgba(255, 255, 255, 0.8);
     max-width: 15em;
+    padding-bottom: 36px;
+}
+.btn {
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+.btn-change {
+    font-family: 'Mulish', sans-serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 28px;
+    text-decoration-line: underline;
+    color: rgba(255, 255, 255, 0.5);
+}
+.city__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.input__city {
+    background: inherit;
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.75);
+    margin-bottom: 36px;
+    min-width: 20em;
+    min-height: 50px;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 36px;
+    color: #FFF;
+}
+.input__city:focus {
+    outline: none;
+    border-bottom: 2px solid #FFF;
+}
+.input__city::placeholder{
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 36px;
+    color: rgba(255, 255, 255, 0.7);
+}
+.btn-find {
+    background: #FFF;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 5px 50px;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 36px;
+    color: #4C01E0;
+    border: none;
 }
 
 a {
