@@ -1,5 +1,6 @@
 const API_KEY = '&appid=0bed307b0afbac425fa1b0935e9651de';
-const container = document.querySelector('.container')
+const container = document.querySelector('.container');
+
 
 window.addEventListener('load', async function () {
     await getLocation()
@@ -10,12 +11,14 @@ window.addEventListener('load', async function () {
 async function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((success) => {
-            let lat = success.coords.latitude;
-            let lon = success.coords.longitude;
-            weatherAPI(lat, lon)
-        })
-    } else {
-        await cityAPI(await getUserLocation())
+                let lat = success.coords.latitude;
+                let lon = success.coords.longitude;
+                weatherAPI(lat, lon)
+            },
+            async function (error) {
+                console.log(error.message)
+                await cityAPI(await getUserLocation())
+            })
     }
 }
 
@@ -37,6 +40,7 @@ async function weatherAPI(lat, lon) {
 }
 
 
+//Функция получения погоды по городу API
 async function cityAPI(city) {
     const API_URL = 'https://api.openweathermap.org/data/2.5/weather?q=';
 
@@ -46,7 +50,7 @@ async function cityAPI(city) {
         .then((data) => data.json())
         .then((data) => {
             const temp = data.main.temp;
-            const description = data.current.weather[0].description;
+            const description = data.weather[0].description;
             drawWeather(temp, description)
         })
 
