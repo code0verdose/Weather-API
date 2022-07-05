@@ -3,12 +3,12 @@ const container = document.querySelector('.container');
 
 
 window.addEventListener('load', async function () {
-    await getLocation()
+    await getGeoLocation()
 })
 
 
 //Функция получения местоположения
-async function getLocation() {
+async function getGeoLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((success) => {
                 let lat = success.coords.latitude;
@@ -17,7 +17,7 @@ async function getLocation() {
             },
             async function (error) {
                 console.log(error.message)
-                await cityAPI(await getUserLocation())
+                await cityAPI(await getIpLocation())
             })
     }
 }
@@ -68,13 +68,20 @@ async function drawWeather(temp, desc) {
 
     const description = document.createElement('p');
     description.className = 'description';
-    description.textContent = `${firstToUpper} in ${await getUserLocation()}`;
+    description.textContent = `${firstToUpper} in ${await getIpLocation()}`;
     container.append(description);
+
+    const change = document.createElement('button');
+    change.textContent = 'Change city';
+    change.className = 'btn btn-change';
+    container.append(change);
+
+    await changeCity()
 }
 
 
 //Функция определения местоположения по IP
-async function getUserLocation() {
+async function getIpLocation() {
     const res = await fetch('https://geo.ipify.org/api/v2/country?apiKey=at_eRqcqqInNt1bUk30MoByCCUV19sX3', {
         method: 'GET',
     })
@@ -83,3 +90,25 @@ async function getUserLocation() {
     return data.location.region;
 }
 
+
+//Функция смены города
+async function changeCity() {
+    const changeBtn = await document.querySelector('.btn-change');
+    changeBtn.addEventListener('click', () => {
+        container.innerHTML = '';
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'city__wrapper';
+        container.append(wrapper);
+
+        const input = document.createElement('input');
+        input.className = 'input__city';
+        input.placeholder = 'Type your city here';
+        wrapper.append(input);
+
+        const findBtn = document.createElement('button');
+        findBtn.className = 'btn-find';
+        findBtn.textContent = 'Find';
+        wrapper.append(findBtn);
+    })
+}
