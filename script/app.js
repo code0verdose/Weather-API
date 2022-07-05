@@ -49,6 +49,9 @@ async function cityAPI(city) {
     })
         .then((data) => data.json())
         .then((data) => {
+            if (data.message) {
+                drawErrors(data.message)
+            }
             const temp = data.main.temp;
             const description = data.weather[0].description;
             drawWeather(temp, description,  () => city)
@@ -125,7 +128,19 @@ async function cityChange(){
 
     findBtn.addEventListener('click', async () => {
         const cityToUpper = inputCity.value[0].toUpperCase() + inputCity.value.slice(1)
-
-        await cityAPI(cityToUpper)
+        try {
+            await cityAPI(cityToUpper)
+        } catch (err) {
+            console.log(err)
+        }
     })
+}
+
+
+//Функция отрисовки ошибки
+async function drawErrors(err){
+    const inputCity = await document.querySelector('.input__city');
+    const errFirstUpper = err[0].toUpperCase() + err.slice(1) + '!';
+
+    inputCity.value = errFirstUpper;
 }
