@@ -105,6 +105,15 @@ main {
     color: #4C01E0;
     border: none;
 }
+.btn-find:hover {
+    transform: translateY(2px);
+    transition: .2s;
+    background-color: #dadada;
+}
+.btn-find:active {
+    background-color: #c7c7c7;
+    transition: .2s;
+}
 
 a {
     text-decoration: none;
