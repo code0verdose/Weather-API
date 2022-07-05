@@ -51,7 +51,7 @@ async function cityAPI(city) {
         .then((data) => {
             const temp = data.main.temp;
             const description = data.weather[0].description;
-            drawWeather(temp, description, city)
+            drawWeather(temp, description, getIpLocation)
         })
 
 }
