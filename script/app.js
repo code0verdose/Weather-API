@@ -127,7 +127,7 @@ async function cityChange(){
     const inputCity = document.querySelector('.input__city');
 
     findBtn.addEventListener('click', async () => {
-        const cityToUpper = inputCity.value[0].toUpperCase() + inputCity.value.slice(1)
+        const cityToUpper = inputCity.value[0].toUpperCase() + inputCity.value.slice(1).trim()
         try {
             await cityAPI(cityToUpper)
         } catch (err) {
